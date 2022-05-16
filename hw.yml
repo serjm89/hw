@@ -1,0 +1,69 @@
+- hosts: all 
+  become: true
+
+  pre_tasks:
+    - name: "Install docker/docker-compose"
+      apt:
+        name:
+          - docker
+          - docker-compose
+        state: present  
+        update_cache: yes    
+
+    - name: "docker is active ?"
+      service:
+        name: docker
+        state: started
+        enabled: yes  
+
+  tasks:
+    - name: "Install prometheus-node-exporter"    
+      apt:
+        name:
+          - prometheus-node-exporter
+        state: present 
+        update_cache: yes
+
+    - name: "Node-exporter is active ?"
+      service:
+        name: prometheus-node-exporter
+        state: started
+        enabled: yes 
+
+    - name: "ARG grafana dashboard"
+      lineinfile:
+        dest: /etc/default/prometheus-node-exporter
+        regexp: '^ARGS'
+        insertbefore: BOF
+        line: 'ARGS="--collector.processes"'
+
+    - name: "Restart node-exporter to apply new config"
+      service:
+        name: prometheus-node-exporter
+        enabled: true
+        state: restarted
+
+    - name: "docker-compose deploy"
+      docker_compose:
+        project_src: /home/vagrant/homework/
+        files:
+          - docker-compose.yml
+
+    - name: "Waiting grafana"
+      become: true
+      service:
+        name: graphical.target
+        state: started
+        enabled: yes
+
+    - name: "Import dashboard"
+      community.grafana.grafana_dashboard:
+        grafana_url: http://localhost:3000
+        grafana_user: "admin"
+        grafana_password: "grafana"
+        dashboard_url: https://grafana.com/api/dashboards/1860/revisions/27/download
+
+    - name: "Restart containers"
+      docker_compose:
+              project_src: /home/vagrant/homework/
+              restarted: yes
