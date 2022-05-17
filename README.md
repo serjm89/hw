@@ -7,12 +7,12 @@
 
 **Start project:**
 
-- 1) git clone https://github.com/serjm89/hw
+ 1st: git clone https://github.com/serjm89/hw
 
-- 2) cd hw/ && vagrant up --provision
+ 2nd: cd hw/ && vagrant up --provision
 
-- 3) url: http://localhost:3000/d/rYdddlPWk/
+ 3rd: url: http://localhost:3000/d/rYdddlPWk/
 
-- 4) creds
-- username: admin 
-- password: grafana
+ 4th: creds
+ username: admin 
+ password: grafana
