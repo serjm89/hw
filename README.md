@@ -1,11 +1,9 @@
                How to use
-# If u from the RU network segment use a proxy
-# Information  https://home.treasury.gov/policy-issues/financial-sanctions/sanctions-programs-and-country-information 
-
-# If u use ubuntu2204 - install latest gem net-ssh 
-# https://rubygems.org/gems/net-ssh/versions
-
-# Use proxy because prometheus-node-exporter dont install in RU segment 
+If u from the RU network segment use a proxy
+Information  https://home.treasury.gov/policy-issues/financial-sanctions/sanctions-programs-and-country-information 
+And proxy need then install prometheus-node-exporter
+If u use ubuntu2204 - install latest gem net-ssh 
+https://rubygems.org/gems/net-ssh/versions
 
 Start project:
 
@@ -15,4 +13,6 @@ Start project:
 
 3) url: http://localhost:3000/d/rYdddlPWk/
 
-4) creds username: admin /  password: grafana
+4) creds
+username: admin 
+password: grafana
